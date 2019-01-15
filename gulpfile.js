@@ -33,6 +33,11 @@ var sassFunction = function () {
     .pipe(browserSync.reload({stream:true}))
 }
 
+var copyHtml = function () {
+  gulp.src('./app/*.html')
+    .pipe(gulp.dest('./app/dist/html/'));
+}
+
 var scripts = function() {
   return gulp.src('./app/source/scripts/*.js')
     .pipe(plumber({
@@ -67,7 +72,7 @@ var nodemon = function () {
 
 function watchFiles() {
   gulp.watch("./app/source/scss/*.scss", sassFunction);
-  gulp.watch("./app/*.html").on('change', browserSync.reload);
+  gulp.watch("./app/*.html", copyHtml);
   gulp.watch("./app/source/scripts/*.js",scripts);
 }
 
