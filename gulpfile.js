@@ -33,7 +33,8 @@ var sassFunction = function () {
     .pipe(autoprefixer('last 2 versions'))
     .pipe(rename('style.css'))
     .pipe(minifycss())
-    .pipe(gulp.dest('app/dist/css/'));
+    .pipe(gulp.dest('app/dist/css/'))
+    .pipe(browserSync.stream());
 }
 
 var copyHtml = function () {
@@ -44,7 +45,8 @@ var copyHtml = function () {
 var images = function() {
   gulp.src('./app/source/images/**/*')
   .pipe(cache(imagemin({ optimizationLevel: 3, progressive: true, interlaced: true })))
-  .pipe(gulp.dest('./app/dist/images/'));
+  .pipe(gulp.dest('./app/dist/images/'))
+  .pipe(browserSync.stream());
 
 }
 var scripts = function() {
@@ -57,7 +59,8 @@ var scripts = function() {
     .pipe(babel())
     .pipe(concat('all.js'))
     .pipe(uglify())
-    .pipe(gulp.dest('./app/dist/js/'));
+    .pipe(gulp.dest('./app/dist/js/'))
+    .pipe(browserSync.stream());
 }
 
 var nodemon = function () {
@@ -82,11 +85,11 @@ var nodemon = function () {
 }
 
 function watchFiles() {
-  gulp.watch("./app/source/scss/*.scss", sassFunction).on('change', browserSync.reload);
   gulp.watch("./app/source/html/*.html", copyHtml).on('change', browserSync.reload);
-  gulp.watch("./app/source/images/**/*'", images).on('change', browserSync.reload);
-  gulp.watch("./app/source/scripts/*.js",scripts).on('change', browserSync.reload);
   gulp.watch("./app.js",nodemon).on('change', browserSync.reload);
+  gulp.watch("./app/source/scss/*.scss", sassFunction);
+  gulp.watch("./app/source/images/**/*'", images);
+  gulp.watch("./app/source/scripts/*.js",scripts);
 }
 
 // All tasks
