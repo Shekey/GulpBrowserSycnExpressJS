@@ -4,6 +4,8 @@ var babel = require('gulp-babel');
 var browserSync = require('browser-sync');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
+var concat = require('gulp-concat');
+var uglify = require('gulp-uglify');
 var minifycss = require('gulp-minify-css');
 var autoprefixer = require('gulp-autoprefixer')
 var nodemon = require('gulp-nodemon');
@@ -46,6 +48,8 @@ var scripts = function() {
         this.emit('end');
     }}))
     .pipe(babel())
+    .pipe(concat('all.js'))
+    .pipe(uglify())
     .pipe(gulp.dest('./app/dist/js/'))
     .pipe(browserSync.reload({stream:true}))
 }

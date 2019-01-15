@@ -1,8 +1,9 @@
+console.log("Hello world");
+
 class Person {
-  constructor(name, surname) {
+  constructor(name,surname){
     this.name = name;
     this.surname = surname;
   }
 }
-
-let persone = new Person("Ajdin","Sahinbegovic");
+console.log("Hello");
