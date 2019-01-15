@@ -37,7 +37,7 @@ var sassFunction = function () {
 }
 
 var copyHtml = function () {
-  gulp.src('./app/*.html')
+  gulp.src('./app/source/html/*.html')
     .pipe(gulp.dest('./app/dist/html/'));
 }
 
@@ -83,9 +83,10 @@ var nodemon = function () {
 
 function watchFiles() {
   gulp.watch("./app/source/scss/*.scss", sassFunction).on('change', browserSync.reload);
-  gulp.watch("./app/*.html", copyHtml).on('change', browserSync.reload);
+  gulp.watch("./app/source/html/*.html", copyHtml).on('change', browserSync.reload);
   gulp.watch("./app/source/images/**/*'", images).on('change', browserSync.reload);
   gulp.watch("./app/source/scripts/*.js",scripts).on('change', browserSync.reload);
+  gulp.watch("./app.js",nodemon).on('change', browserSync.reload);
 }
 
 // All tasks
