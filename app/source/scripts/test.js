@@ -6,4 +6,4 @@ class Person {
     this.surname = surname;
   }
 }
-console.log("Hello world !");
+console.log("Hello Wor!");
