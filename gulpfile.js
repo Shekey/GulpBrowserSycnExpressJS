@@ -22,7 +22,7 @@ var paths = {
   },
 
   html: {
-      src: "./app/source/html/*.html",
+      src: "./app/source/html/*.njk",
       dest: "./app/dist/html/"
   },
 
