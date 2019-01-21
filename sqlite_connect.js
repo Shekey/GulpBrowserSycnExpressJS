@@ -6,4 +6,19 @@ let db = new sqlite3.Database(':memory:', (err) => {
   console.log('Connected to the in-memory SQlite database.');
 });
 
-module.exports = {db: db};
+function SqLite(table) {
+  this.table = table;
+  this.id = 0;
+  this.getAll = function() {
+    var queryString = `SELECT * FROM ${this.table}`;
+    return new Promise(function(resolve, reject) {
+      db.query(queryString, (err, rows, fields) => {
+        if(err) {
+          reject(err);
+        }
+        resolve(rows);
+      })
+    })
+  }
+}
+module.exports = SqLite;
