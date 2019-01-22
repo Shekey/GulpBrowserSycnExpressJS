@@ -25,6 +25,15 @@ app.get('/test', (req, res) => {
     // res.json(result)
   })
 });
+
+app.post('/test/submit', (req, res) => {
+  var query = req.body.query;
+  data.get(query).then(function (result) {
+    res.render('table.njk',{ list: result })
+    // res.json(result)
+  })
+});
+
 app.get('/about', (req, res) => res.render('about.njk'));
 app.get('/api/users', (req, res) => {
   users.getAll(this).then(function (result) {

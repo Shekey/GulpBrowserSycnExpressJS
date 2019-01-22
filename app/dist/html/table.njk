@@ -9,6 +9,10 @@
 </head>
 <body>
 <h1>LIST</h1>
+    <form action="http://localhost:9001/test/submit" method="post">
+    Query parametar: <input type="text" name="query"><br>
+    <input type="submit" value="Submit">
+    </form>
     <ul class="list-group">
       {% for item in list %}
         <li>{{item.name}}</li>
