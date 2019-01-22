@@ -13,10 +13,14 @@ app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(morgan('combined'));
 app.use(express.static('./app/dist'))
+
+// get REQUESTS
 app.get('/', (req, res) => res.render('index.njk'));
 app.get('/test', (req, res) => {data.get().then(function (result) {res.render('table.njk',{ list: result })})});
 app.get('/about', (req, res) => res.render('about.njk'));
 app.get('/api/users', (req, res) => {users.getAll(this).then(function (result) {res.send(result);})});
+
+//post REQUESTS
 app.post('/api/users', function (req, res) {
   var name = req.body.name;
   var surname = req.body.surname;
@@ -39,6 +43,8 @@ app.post('/test/submit', (req, res) => {
     res.render('table.njk',{ list: result })
   })
 });
+
+//put REQUESTS
 app.put('/api/users/', (req, res) => {
   var name = req.body.name;
   var surname = req.body.surname;
@@ -57,5 +63,7 @@ app.get('/api/users/:id', (req, res) => {
     res.send(result.length <= 0 ? "Sorry, can't find this user" : result);
   })
 });
+
+
 app.listen(9001);
 module.exports = app;
