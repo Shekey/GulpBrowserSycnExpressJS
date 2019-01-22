@@ -72,7 +72,6 @@ function MySql(table) {
       })
     })
   }
-
 }
 
 module.exports = MySql;

@@ -1,10 +1,10 @@
 var express = require('express'),
   app = express();
-var path = require('path');
 var morgan = require('morgan');
 var factory = require('./factory');
 var bodyParser = require('body-parser');
 var nunjucks = require('nunjucks');
+var data = require('./getDataAPI');
 var factory = new factory();
 var users = factory.create("users");
 users.createTableUsers();
@@ -19,29 +19,35 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 app.use(morgan('combined'));
 app.use(express.static('./app/dist'))
 app.get('/', (req, res) => res.render('index.njk'));
+app.get('/test', (req, res) => {
+  data.get().then(function (result) {
+    res.render('table.njk',{ list: result })
+    // res.json(result)
+  })
+});
 app.get('/about', (req, res) => res.render('about.njk'));
 app.get('/api/users', (req, res) => {
-  users.getAll(this).then(function(result) {
-  res.send(result);
- })
+  users.getAll(this).then(function (result) {
+    res.send(result);
+  })
 });
 
-app.post('/api/users', function(req, res) {
+app.post('/api/users', function (req, res) {
   var name = req.body.name;
   var surname = req.body.surname;
 
-  users.add(users,name,surname).then(function(result) {
+  users.add(users, name, surname).then(function (result) {
     res.send(result);
-   })
+  })
 });
 
-app.post('/api/users', function(req, res) {
+app.post('/api/users', function (req, res) {
   var name = req.body.name;
   var surname = req.body.surname;
 
-  users.add(users,name,surname).then(function(result) {
+  users.add(users, name, surname).then(function (result) {
     res.send(result);
-   })
+  })
 });
 
 app.put('/api/users/', (req, res) => {
@@ -49,7 +55,7 @@ app.put('/api/users/', (req, res) => {
   var surname = req.body.surname;
   var userId = req.body.id;
 
-  users.update(users,userId,name,surname).then(function(result) {
+  users.update(users, userId, name, surname).then(function (result) {
     res.send(result);
   })
 });
@@ -58,8 +64,8 @@ app.get('/api/users/:id', (req, res) => {
   const userId = req.params.id
   users.id = userId;
 
-  users.get(users).then(function(result) {
-    res.send(result.length<=0?"Sorry, can't find this user":result);
+  users.get(users).then(function (result) {
+    res.send(result.length <= 0 ? "Sorry, can't find this user" : result);
   })
 });
 
