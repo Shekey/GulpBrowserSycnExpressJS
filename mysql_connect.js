@@ -1,20 +1,12 @@
-var mysql = require('mysql');
-
-const databaseOptions = {
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  port: '8889',
-  database: "nodeJsDB"
-};
-
+var pool = require('./dbConnection');
 function MySql(table) {
   this.table = table;
   this.id = 0;
+  this.name = '';
 
   this.createTableUsers = function() {
-    var sql = `CREATE TABLE IF NOT EXISTS ${this.table} (id int(11) NOT NULL auto_increment, name VARCHAR(255), surname VARCHAR(255),PRIMARY KEY  (id))`;
-    mysql.createConnection(databaseOptions).query(sql, function (err, result) {
+    var sql = `CREATE TABLE IF NOT EXISTS ${this.table} (id int(11) NOT NULL auto_increment, name VARCHAR(255), manu VARCHAR(255), category VARCHAR(255), PRIMARY KEY  (id))`
+    pool.query(sql, function (err, result) {
     if (err) throw err;
     });
   }
@@ -22,7 +14,7 @@ function MySql(table) {
   this.getAll = function() {
     var queryString = "SELECT * FROM users";
     return new Promise(function(resolve, reject) {
-      mysql.createConnection(databaseOptions).query(queryString, (err, rows, fields) => {
+      pool.query(queryString, (err, rows, fields) => {
         if(err) {
           reject(err);
         }
@@ -30,10 +22,10 @@ function MySql(table) {
       })
     })
   }
-  this.get = function(obj) {
+  this.getById = function(obj) {
       var queryString = `SELECT * FROM ${this.table} where id = ${obj.id}`;
       return new Promise(function(resolve, reject) {
-        mysql.createConnection(databaseOptions).query(queryString, (err, rows, fields) => {
+        pool.query(queryString, (err, rows, fields) => {
           if(err) {
             reject(err);
           }
@@ -41,12 +33,23 @@ function MySql(table) {
         })
       })
   }
+  this.getByName = function(obj) {
+    var queryString = `SELECT * FROM ${this.table} where category like '%${obj.name}%'`;
+    return new Promise(function(resolve, reject) {
+      pool.query(queryString, (err, rows, fields) => {
+        if(err) {
+          reject(err);
+        }
+        resolve(rows);
+      })
+    })
+}
 
-  this.add = function(obj,...params) {
-    var queryString =  `INSERT INTO ${this.table} (name, surname) VALUES (?, ?)`;
+  this.add = function(...params) {
+    var queryString =  `INSERT INTO ${this.table} (name, manu,category) VALUES (?, ?, ?)`;
     console.log(params);
     return new Promise(function(resolve, reject) {
-      mysql.createConnection(databaseOptions).query(queryString,params, (err, rows, fields) => {
+      pool.query(queryString,params, (err, rows, fields) => {
         if(err) {
           reject(err);
         }
@@ -59,12 +62,12 @@ function MySql(table) {
     console.log(id);
     console.log(params);
     let name = params[0];
-    let surname = params[1];
-    var queryString =  `UPDATE ${this.table} SET name = "${name}", surname = "${surname}" WHERE id = "${id}"`;
-    // var queryString =  `UPDATE ${this.table} SET name = "Ajdin", surname = "SAHINBEGIVUICCCA" WHERE id = 1`;
+    let manu = params[1];
+    let category = params[2];
+    var queryString =  `UPDATE ${this.table} SET name = "${name}", category = "${category}", manu = "${manu}" WHERE id = "${id}"`;
 
     return new Promise(function(resolve, reject) {
-      mysql.createConnection(databaseOptions).query(queryString, (err, rows, fields) => {
+      pool.query(queryString, (err, rows, fields) => {
         if(err) {
           reject(err);
         }

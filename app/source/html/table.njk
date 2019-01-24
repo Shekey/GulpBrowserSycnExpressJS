@@ -21,10 +21,15 @@
       <th>Manufactur</th>
     </tr>
     </thead>
+      <h3>Is it from database : {{list.fromDb}}</h3>
       {% for item in list %}
+      {% set group = item.group %}
+      {% if list.fromDb %}
+       {% set group = item.category %}
+      {% endif %}
         <tr>
           <td>{{item.name}}</td>
-          <td>{{item.group}}</td>
+          <td>{{group}}</td>
           <td>{{item.manu}}</td>
         </tr>
      {% endfor %}

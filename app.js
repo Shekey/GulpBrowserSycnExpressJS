@@ -5,10 +5,7 @@ var factory = require('./factory');
 var bodyParser = require('body-parser');
 var nunjucks = require('nunjucks');
 var data = require('./getDataAPI');
-var factory = new factory();
-var users = factory.create("users");
-users.createTableUsers();
-
+var users = data.db;
 nunjucks.configure('./app/dist/html', {
   autoescape: true,
   express: app
@@ -41,7 +38,9 @@ app.get('/api/users', (req, res) => {
   })
 });
 
-app.get('/test', (req, res) => {data.get().then(function (result) {res.render('table.njk',{ list: result })})});
+app.get('/test', (req, res) => {data.get().then(function (result) {
+  console.log(result);
+  res.render('table.njk',{ list: result })})});
 app.post('/test/', (req, res) => {
   var query = req.body.query;
   data.get(query).then(function (result) {
@@ -81,7 +80,7 @@ app.get('/api/users/:id', (req, res) => {
   const userId = req.params.id
   users.id = userId;
 
-  users.get(users).then(function (result) {
+  users.getById(users).then(function (result) {
     res.send(result.length <= 0 ? "Sorry, can't find this user" : result);
   })
 });
