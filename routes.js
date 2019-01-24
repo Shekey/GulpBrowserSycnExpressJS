@@ -37,7 +37,7 @@ app.post('/api/users', function (req, res) {
     res.send(result);
   })
 });
-app.post('/test/submit', (req, res) => {
+app.post('/test/', (req, res) => {
   var query = req.body.query;
   data.get(query).then(function (result) {
     res.render('table.njk',{ list: result })

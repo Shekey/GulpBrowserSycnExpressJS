@@ -13,21 +13,10 @@
     Query parametar: <input type="text" name="query"><br>
     <input type="submit" value="Submit">
     </form>
-    <table class="list-group">
-    <thead>
-    <tr>
-      <th>Name</th>
-      <th>Group</th>
-      <th>Manufactur</th>
-    </tr>
-    </thead>
+    <ul class="list-group">
       {% for item in list %}
-        <tr>
-          <td>{{item.manu}}</td>
-          <td>{{item.group}}</td>
-          <td>{{item.manu}}</td>
-        </tr>
+        <li>{{item.name}}</li>
      {% endfor %}
-    </table>
+    </ul>
 </body>
 </html>
