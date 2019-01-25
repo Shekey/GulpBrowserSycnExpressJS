@@ -29,6 +29,9 @@ module.exports = {
                         var body = JSON.parse(body);
                         data = body.list.item;
                         data.fromDb = false;
+                        data.total = body.list.total;
+                        console.log(data.total);
+                        console.log(body.list.total);
                         data.forEach(element => {
                             users.add(element.name,element.manu,query);
                         });

@@ -22,6 +22,7 @@
     </tr>
     </thead>
       <h3>Is it from database : {{list.fromDb}}</h3>
+      <h5>Total : {{list.length}}</h5>
       {% for item in list %}
       {% set group = item.group %}
       {% if list.fromDb %}
