@@ -5,12 +5,14 @@ users = factory.create("food");
 
 module.exports = {
     db: users,
-    get: function (query) {
+    get: function (query,perPage,currentPage) {
         const format = 'json';
         const apiKey = '5NmIFUxjbzwH9acl5mNmSad6sUkBuBKJdsK1tblt';
         var query = query;
         query = query == undefined ? 'butter' : query;
-        const url = `https://api.nal.usda.gov/ndb/search/?format=${format}&q=${query}&sort=r&api_key=${apiKey}`;
+        var perPage = 25;
+        var currentPage = currentPage*25;
+        const url = `https://api.nal.usda.gov/ndb/search/?format=${format}&q=${query}&max=${perPage}&offset=${currentPage}&ds=Standard%20Reference&sort=r&api_key=${apiKey}`;
         users.createTableFood();
         return new Promise(function (resolve, reject) {
             var data = '';

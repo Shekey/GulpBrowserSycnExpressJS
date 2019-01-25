@@ -1,1 +1,1 @@
-"use strict";
+"use strict";var perPage=document.querySelector("input[name=perPage]"),currentPage=document.querySelector("input[name=currentPage]"),form=document.querySelector(".search-form"),pagination=document.querySelectorAll(".pagination a");pagination.forEach(function(n){n.addEventListener("click",function(e){var r=document.querySelector(".pagination a.active");currentPage.value=n.innerHTML,r.classList.remove("active"),n.classList.add("active"),form.submit()})}),console.log(perPage),console.log(currentPage),console.log("Hello world");
