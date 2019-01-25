@@ -1,24 +1,60 @@
-const sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database(':memory:', (err) => {
-  if (err) {
-    return console.error(err.message);
-  }
-  console.log('Connected to the in-memory SQlite database.');
-});
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('abcd');
 
 function SqLite(table) {
   this.table = table;
   this.id = 0;
-  this.getAll = function() {
-    var queryString = `SELECT * FROM ${this.table}`;
-    return new Promise(function(resolve, reject) {
-      db.query(queryString, (err, rows, fields) => {
-        if(err) {
-          reject(err);
-        }
-        resolve(rows);
-      })
+  this.createTableFood = function () {
+    var sql = 'CREATE TABLE IF NOT EXISTS  food (id INTEGER PRIMARY KEY AUTOINCREMENT, name text, manu text, category text,dateUpdated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)';
+    db.run(sql);
+    db.serialize(function () {
+      db.get("SELECT * FROM food", function (err, rows) {
+        console.log(err);
+        console.log(rows);
+      });
+    });
+  }
+  this.getByName = function (obj) {
+    var queryString = `SELECT * FROM ${this.table} where category like '%${obj.name}%'`;
+    return new Promise(function (resolve, reject) {
+      db.serialize(function () {
+        db.all(queryString, (err, rows, fields) => {
+          if (err) {
+            reject(err);
+          }
+          resolve(rows);
+        })
+      });
     })
+  }
+  this.add = function (...params) {
+    var queryString = `INSERT INTO ${this.table} (name, manu,category) VALUES (?, ?, ?)`;
+    console.log(params);
+    return new Promise(function (resolve, reject) {
+      db.serialize(function () {
+        db.run(queryString, params, (err, rows, fields) => {
+          if (err) {
+            reject(err);
+          }
+          resolve(rows);
+        })
+      });
+    })
+  }
+  this.getAll = function () {
+    var queryString = `SELECT * FROM ${this.table}`;
+    console.log(db);
+    return new Promise(function (resolve, reject) {
+      db.serialize(function () {
+        db.all(queryString, (err, rows, fields) => {
+          if (err) {
+            reject(err);
+          }
+          console.log(rows);
+          resolve(rows);
+        })
+      })
+    });
   }
 }
 module.exports = SqLite;

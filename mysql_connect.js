@@ -4,8 +4,8 @@ function MySql(table) {
   this.id = 0;
   this.name = '';
 
-  this.createTableUsers = function() {
-    var sql = `CREATE TABLE IF NOT EXISTS ${this.table} (id int(11) NOT NULL auto_increment, name VARCHAR(255), manu VARCHAR(255), category VARCHAR(255), PRIMARY KEY  (id))`
+  this.createTableFood = function() {
+    var sql = `CREATE TABLE IF NOT EXISTS ${this.table} (id int(11) NOT NULL auto_increment, name VARCHAR(255), manu VARCHAR(255), category VARCHAR(255),dateUpdated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY  (id))`
     pool.query(sql, function (err, result) {
     if (err) throw err;
     });
@@ -35,6 +35,7 @@ function MySql(table) {
   }
   this.getByName = function(obj) {
     var queryString = `SELECT * FROM ${this.table} where category like '%${obj.name}%'`;
+    console.log(sql);
     return new Promise(function(resolve, reject) {
       pool.query(queryString, (err, rows, fields) => {
         if(err) {
@@ -63,8 +64,10 @@ function MySql(table) {
     console.log(params);
     let name = params[0];
     let manu = params[1];
+    let CURRENT_TIMESTAMP = new Date.now();
+    console.log(CURRENT_TIMESTAMP);
     let category = params[2];
-    var queryString =  `UPDATE ${this.table} SET name = "${name}", category = "${category}", manu = "${manu}" WHERE id = "${id}"`;
+    var queryString =  `UPDATE ${this.table} SET name = "${name}", category = "${category}", manu = "${manu}", dateUpdated = ${CURRENT_TIMESTAMP} WHERE id = "${id}"`;
 
     return new Promise(function(resolve, reject) {
       pool.query(queryString, (err, rows, fields) => {

@@ -11,10 +11,11 @@ module.exports = {
         var query = query;
         query = query == undefined ? 'butter' : query;
         const url = `https://api.nal.usda.gov/ndb/search/?format=${format}&q=${query}&sort=r&api_key=${apiKey}`;
-        users.createTableUsers();
+        users.createTableFood();
         return new Promise(function (resolve, reject) {
             var data = '';
             users.name = query;
+            console.log(query);
             users.getByName(users).then(function (result) {
                 if(result.length>0){
                     result.fromDb = true;
@@ -35,8 +36,7 @@ module.exports = {
                     });
                 }
             });
+
         })
-
-
     }
 };

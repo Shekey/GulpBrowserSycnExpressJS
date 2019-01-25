@@ -1,5 +1,6 @@
 
-var obj = require('./mysql_connect');
+// var obj = require('./mysql_connect');
+var obj = require('./sqlite_connect');
 function Factory() {
 
   this.create = function(name) {

@@ -22,7 +22,6 @@ app.get('/test', (req, res) => {
     // res.json(result)
   })
 });
-
 app.post('/test/submit', (req, res) => {
   var query = req.body.query;
   data.get(query).then(function (result) {
@@ -30,14 +29,12 @@ app.post('/test/submit', (req, res) => {
     // res.json(result)
   })
 });
-
 app.get('/about', (req, res) => res.render('about.njk'));
 app.get('/api/users', (req, res) => {
   users.getAll(this).then(function (result) {
     res.send(result);
   })
 });
-
 app.get('/test', (req, res) => {data.get().then(function (result) {
   console.log(result);
   res.render('table.njk',{ list: result })})});
@@ -47,7 +44,6 @@ app.post('/test/', (req, res) => {
     res.render('table.njk',{ list: result })
   })
 });
-
 app.post('/api/users', function (req, res) {
   var name = req.body.name;
   var surname = req.body.surname;
@@ -56,7 +52,6 @@ app.post('/api/users', function (req, res) {
     res.send(result);
   })
 });
-
 app.post('/api/users', function (req, res) {
   var name = req.body.name;
   var surname = req.body.surname;
@@ -65,7 +60,6 @@ app.post('/api/users', function (req, res) {
     res.send(result);
   })
 });
-
 app.put('/api/users/', (req, res) => {
   var name = req.body.name;
   var surname = req.body.surname;
