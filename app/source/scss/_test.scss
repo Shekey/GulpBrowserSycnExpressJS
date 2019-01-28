@@ -31,7 +31,7 @@ body {
     float: left;
     padding: 8px 16px;
     text-decoration: none;
-    
+
     &.active {
       background-color: #4CAF50;
       color: white;
@@ -41,7 +41,7 @@ body {
     &:hover {
       &:not(.active){
         background-color: #ddd;
-        border-radius: 5px;
+        border-radius: 7px;
       }
     }
   }

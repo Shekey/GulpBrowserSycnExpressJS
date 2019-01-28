@@ -12,8 +12,9 @@ function SqLite(table) {
       });
     });
   }
-  this.getByName = function (obj) {
-    var queryString = `SELECT * FROM ${this.table} where category like '%${obj.name}%'`;
+  this.getByName = function (obj,startItem) {
+    console.log(startItem);
+    var queryString = `SELECT * FROM ${this.table} where category like '%${obj.name}%' LIMIT ${startItem},25`;
     return new Promise(function (resolve, reject) {
       db.serialize(function () {
         db.all(queryString, (err, rows, fields) => {
@@ -38,8 +39,8 @@ function SqLite(table) {
       });
     })
   }
-  this.getAll = function () {
-    var queryString = `SELECT * FROM ${this.table}`;
+  this.getAll = function (obj) {
+    var queryString = `SELECT * FROM ${this.table} where category like '%${obj.name}%'`;
     return new Promise(function (resolve, reject) {
       db.serialize(function () {
         db.all(queryString, (err, rows, fields) => {

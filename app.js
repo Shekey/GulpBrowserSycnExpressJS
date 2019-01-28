@@ -17,13 +17,14 @@ app.use(morgan('combined'));
 app.use(express.static('./app/dist'))
 app.get('/', (req, res) => res.render('index.njk'));
 app.get('/test', (req, res) => {
-  data.get().then(function (result) {
+  data.get(undefined,25,0).then(function (result) {
     res.render('table.njk',{ list: result })
   })
 });
 app.post('/test/submit', (req, res) => {
   var query = req.body.query;
-  data.get(query).then(function (result) {
+  var currentPage = req.body.currentPage;
+  data.get(query,currentPage).then(function (result) {
     res.render('table.njk',{ list: result })
     // res.json(result)
   })

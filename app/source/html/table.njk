@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,19 +8,20 @@
   <link rel="stylesheet" href="../css/style.css" type="text/css">
   <title>TEST</title>
 </head>
+
 <body>
-<h1>LIST</h1>
-    Query parametar: <input type="text" name="query"><br>
-    <button type="submit" id="querySubmit" >Submit</button>
-    <input type="hidden" id="currentPage" name="currentPage" value="1">
-    <input type="hidden" id="perPage" name="perPage" value="25">
-    <table class="list-group">
+  <h1>LIST</h1>
+  Query parametar: <input type="text" name="query"><br>
+  <button type="submit" id="querySubmit">Submit</button>
+  <input type="hidden" id="currentPage" name="currentPage" value="0">
+  <input type="hidden" id="perPage" name="perPage" value="25">
+  <table class="list-group">
     <thead>
-    <tr>
-      <th>Name</th>
-      <th>Group</th>
-      <th>Manufactur</th>
-    </tr>
+      <tr>
+        <th>Name</th>
+        <th>Group</th>
+        <th>Manufactur</th>
+      </tr>
     </thead>
     <tbody id="foods-table-body">
       <h3>Is it from database :<span id="fromDb"> {{list.fromDb}}</span></h3>
@@ -27,25 +29,26 @@
       {% for item in list %}
       {% set group = item.group %}
       {% if list.fromDb %}
-       {% set group = item.category %}
+      {% set group = item.category %}
       {% endif %}
-        <tr>
-          <td>{{item.name}}</td>
-          <td>{{group}}</td>
-          <td>{{item.manu}}</td>
-        </tr>
-     {% endfor %}
+      <tr>
+        <td>{{item.name}}</td>
+        <td>{{group}}</td>
+        <td>{{item.manu}}</td>
+      </tr>
+      {% endfor %}
     </tbody>
-    </table>
-    {# <div class="pagination">
+  </table>
+  <div class="pagination">
     <a href="#" class="active">1</a>
     <a href="#">2</a>
     <a href="#">3</a>
     <a href="#">4</a>
     <a href="#">5</a>
     <a href="#">6</a>
-</div> #}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="../scripts/all.js"></script>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="../scripts/all.js"></script>
 </body>
+
 </html>

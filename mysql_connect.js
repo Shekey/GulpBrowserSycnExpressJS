@@ -33,8 +33,8 @@ function MySql(table) {
         })
       })
   }
-  this.getByName = function(obj) {
-    var queryString = `SELECT * FROM ${this.table} where category like '%${obj.name}%'`;
+  this.getByName = function(obj,startItem) {
+    var queryString = `SELECT * FROM ${this.table} where category like '%${obj.name}%' LIMIT ${startItem},25`;
     console.log(sql);
     return new Promise(function(resolve, reject) {
       pool.query(queryString, (err, rows, fields) => {

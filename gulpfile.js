@@ -118,5 +118,6 @@ function watchFiles() {
   gulp.watch(paths.js.src, scripts);
   gulp.watch(paths.sass.src, sassFunction);
 }
+
 exports.default = watchFiles;
 exports.watch = watchFiles;
