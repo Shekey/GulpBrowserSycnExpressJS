@@ -24,7 +24,6 @@ $(document).ready (() => {
     var query =  document.getElementsByName('query')[0].value;
     var currentPage =  document.getElementsByName('currentPage')[0].value;
     document.getElementsByName('query')[0].value = '';
-    console.log(query);
     $.ajax({
       url: '/test/',
       dataType: 'json',

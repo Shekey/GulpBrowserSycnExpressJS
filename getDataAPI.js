@@ -17,7 +17,6 @@ module.exports = {
         return new Promise(function (resolve, reject) {
             var data = '';
             users.name = query;
-            console.log(query);
             users.getByName(users).then(function (result) {
                 if(result.length>0){
                     result.fromDb = true;
@@ -32,8 +31,6 @@ module.exports = {
                         data = body.list.item;
                         data.fromDb = false;
                         data.total = body.list.total;
-                        console.log(data.total);
-                        console.log(body.list.total);
                         data.forEach(element => {
                             users.add(element.name,element.manu,query);
                         });

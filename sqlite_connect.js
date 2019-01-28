@@ -9,8 +9,6 @@ function SqLite(table) {
     db.run(sql);
     db.serialize(function () {
       db.get("SELECT * FROM food", function (err, rows) {
-        console.log(err);
-        console.log(rows);
       });
     });
   }
@@ -29,7 +27,6 @@ function SqLite(table) {
   }
   this.add = function (...params) {
     var queryString = `INSERT INTO ${this.table} (name, manu,category) VALUES (?, ?, ?)`;
-    console.log(params);
     return new Promise(function (resolve, reject) {
       db.serialize(function () {
         db.run(queryString, params, (err, rows, fields) => {
@@ -43,14 +40,12 @@ function SqLite(table) {
   }
   this.getAll = function () {
     var queryString = `SELECT * FROM ${this.table}`;
-    console.log(db);
     return new Promise(function (resolve, reject) {
       db.serialize(function () {
         db.all(queryString, (err, rows, fields) => {
           if (err) {
             reject(err);
           }
-          console.log(rows);
           resolve(rows);
         })
       })

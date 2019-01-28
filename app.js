@@ -69,7 +69,6 @@ app.put('/api/users/', (req, res) => {
   })
 });
 app.get('/api/users/:id', (req, res) => {
-  console.log(req.params.id);
   const userId = req.params.id
   users.id = userId;
 
