@@ -13,7 +13,7 @@ module.exports = {
         console.log(query);
         var perPage = 25;
         var startItem = currentPage*25+1;
-        const url = `https://api.nal.usda.gov/ndb/search/?format=${format}&q=${query}&max=${perPage}&offset=${startItem}&ds=Standard%20Reference&sort=r&api_key=${apiKey}`;
+        var url = `https://api.nal.usda.gov/ndb/search/?format=${format}&q=${query}&max=${perPage}&offset=${startItem}&ds=Standard%20Reference&sort=r&api_key=${apiKey}`;
         users.createTableFood();
         return new Promise(function (resolve, reject) {
             query = query;
@@ -28,6 +28,7 @@ module.exports = {
                     resolve (result);
                 }
                 else {
+                    console.log(url);
                     Request.get(url, (error, response, body) => {
                         if (error) {
                             reject(error);
