@@ -20,6 +20,9 @@
 
 $(document).ready (() => {
   var $body =$('#foods-table-body');
+  var $totalFoodList =$('#totalFoodList');
+  var $fromDb =$('#fromDb');
+
   $('#querySubmit').click(() => {
     var query =  document.getElementsByName('query')[0].value;
     var currentPage =  document.getElementsByName('currentPage')[0].value;
@@ -31,12 +34,15 @@ $(document).ready (() => {
       type: 'POST',
       success: (data) =>{
         $body.empty();
+        $totalFoodList.text(data.result.length);
+        var result = data.result;
+        $fromDb.text(data.fromDb);
         var tr;
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < result.length; i++) {
           tr = $('<tr/>');
-          tr.append("<td>" + data[i].name + "</td>");
-          tr.append("<td>" + data[i].category + "</td>");
-          tr.append("<td>" + data[i].manu + "</td>");
+          tr.append("<td>" + result[i].name + "</td>");
+          tr.append("<td>" + result[i].category + "</td>");
+          tr.append("<td>" + result[i].manu + "</td>");
           $body.append(tr);
         }
       }
