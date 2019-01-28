@@ -8,10 +8,10 @@ $(document).ready(() => {
       currentPage.value = e.target.text;
       var query = document.getElementsByName('query')[0].value;
       var $activeLink = $('.pagination a.active');
-      e.target.classList.add('active');
       $activeLink[0].classList.remove('active');
+      e.target.classList.add('active');
       console.log('TEXTSEARCH'+ query);
-      ajaxCall(query, currentPage.value);
+      ajaxCall(query, currentPage.value>0?currentPage.value-1:currentPage);
     });
   };
 
