@@ -19,7 +19,6 @@ app.get('/', (req, res) => res.render('index.njk'));
 app.get('/test', (req, res) => {
   data.get().then(function (result) {
     res.render('table.njk',{ list: result })
-    // res.json(result)
   })
 });
 app.post('/test/submit', (req, res) => {
@@ -36,12 +35,10 @@ app.get('/api/users', (req, res) => {
   })
 });
 app.get('/test', (req, res) => {data.get().then(function (result) {
-  console.log(result);
   res.render('table.njk',{ list: result })})});
 app.post('/test', (req, res) => {
   var query = req.body.query;
   var currentPage = req.body.currentPage;
-  console.log(currentPage);
   data.get(query,25,currentPage).then(function (result) {
     res.json(result);
   })
