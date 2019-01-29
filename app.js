@@ -44,6 +44,13 @@ app.post('/test', (req, res) => {
     res.json({result: result,fromDb: result.fromDb,total:result.total,offset: result.offset});
   })
 });
+app.get('/test/:id', (req, res) => {
+  const userId = req.params.id
+
+  data.getById(userId).then(function (result) {
+    res.json(result);
+  })
+})
 app.post('/api/users', function (req, res) {
   var name = req.body.name;
   var surname = req.body.surname;

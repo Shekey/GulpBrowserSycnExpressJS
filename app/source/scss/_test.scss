@@ -46,3 +46,10 @@ body {
     }
   }
 }
+#foods-table-body {
+  tr{
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}

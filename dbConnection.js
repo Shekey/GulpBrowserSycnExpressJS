@@ -7,6 +7,7 @@ const databaseOptions = {
   port: '8889',
   database: "nodeJsDB",
   connectionLimit : 5,
+  multipleStatements: true
 };
 
 var pool = mysql.createPool(databaseOptions);

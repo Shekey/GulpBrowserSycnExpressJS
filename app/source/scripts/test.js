@@ -1,7 +1,7 @@
 $(document).ready(() => {
   var $pageLinks = $('.pagination a');
   var currentPage = document.getElementsByName('currentPage')[0];
-  var textSearch = '';
+  var tr = document.querySelectorAll('#foods-table-body tr');
 
   for (var i = 0; i < $pageLinks.length; i++) {
     $pageLinks[i].addEventListener('click', (e) => {
@@ -11,6 +11,13 @@ $(document).ready(() => {
       $activeLink[0].classList.remove('active');
       e.target.classList.add('active');
       ajaxCall(query, currentPage.value>0?currentPage.value-1:currentPage);
+    });
+  };
+
+  for (var j = 0; j < tr.length; j++) {
+    tr[j].addEventListener('click', () => {
+      // window.location.href = "http://stackoverflow.com"+tr.item(i).dataset.href;
+      window.location.href = "http://localhost:9001/test/"+tr.item(i).dataset.href;
     });
   };
 
@@ -39,6 +46,7 @@ $(document).ready(() => {
           tr.append("<td>" + result[i].name + "</td>");
           tr.append("<td>" + result[i].category + "</td>");
           tr.append("<td>" + result[i].manu + "</td>");
+          tr.append("<td>" + result[i].ndbno + "</td>");
           $body.append(tr);
         }
       }
@@ -66,6 +74,7 @@ function ajaxCall(query, currentPageValue) {
         tr.append("<td>" + result[i].name + "</td>");
         tr.append("<td>" + result[i].category + "</td>");
         tr.append("<td>" + result[i].manu + "</td>");
+        tr.append("<td>" + result[i].ndbno + "</td>");
         $body.append(tr);
       }
     }

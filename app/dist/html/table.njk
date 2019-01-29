@@ -21,16 +21,18 @@
         <th>Name</th>
         <th>Group</th>
         <th>Manufactur</th>
+        <th>Ndbno</th>
       </tr>
     </thead>
     <tbody id="foods-table-body">
       <h3>Is it from database :<span id="fromDb"> {{list.fromDb}}</span></h3>
       <h5>Total : <span id="totalFoodList">{{list.offset}} / {{list.total}}</span></h5>
       {% for item in list %}
-      <tr>
+      <tr data-href='{{item.ndbno}}'>
         <td>{{item.name}}</td>
         <td>{{item.category}}</td>
         <td>{{item.manu}}</td>
+        <td>{{item.ndbno}}</td>
       </tr>
       {% endfor %}
     </tbody>
