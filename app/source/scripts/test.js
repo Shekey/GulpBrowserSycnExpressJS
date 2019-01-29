@@ -14,13 +14,11 @@ $(document).ready(() => {
     });
   };
 
-  for (var j = 0; j < tr.length; j++) {
-    tr[j].addEventListener('click', () => {
-      // window.location.href = "http://stackoverflow.com"+tr.item(i).dataset.href;
-      window.location.href = "http://localhost:9001/test/"+tr.item(i).dataset.href;
+  tr.forEach(element => {
+    element.addEventListener('click',function(){
+      window.location.href = "http://localhost:9001/test/"+element.dataset.href;
     });
-  };
-
+  })
   $('#querySubmit').click(() => {
     var $activeLink = $('.pagination a.active');
     $activeLink[0].classList.remove('active');
