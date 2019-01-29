@@ -48,7 +48,7 @@ app.get('/test/:id', (req, res) => {
   const userId = req.params.id
 
   data.getById(userId).then(function (result) {
-    res.json(result);
+    res.render('detailFood.njk',{ list: result });
   })
 })
 app.post('/api/users', function (req, res) {
