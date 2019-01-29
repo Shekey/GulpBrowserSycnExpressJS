@@ -10,7 +10,6 @@ $(document).ready(() => {
       var $activeLink = $('.pagination a.active');
       $activeLink[0].classList.remove('active');
       e.target.classList.add('active');
-      console.log('TEXTSEARCH'+ query);
       ajaxCall(query, currentPage.value>0?currentPage.value-1:currentPage);
     });
   };
@@ -24,7 +23,6 @@ $(document).ready(() => {
     var $body = $('#foods-table-body');
     var $totalFoodList = $('#totalFoodList');
     var $fromDb = $('#fromDb');
-    console.log('TEXTSEARCH'+ query);
     $.ajax({
       url: '/test/',
       dataType: 'json',
@@ -32,7 +30,7 @@ $(document).ready(() => {
       type: 'POST',
       success: (data) => {
         $body.empty();
-        $totalFoodList.text(data.result.length);
+        $totalFoodList.text(data.offset +'/' + data.total);
         var result = data.result;
         $fromDb.text(data.fromDb);
         var tr;
@@ -59,7 +57,8 @@ function ajaxCall(query, currentPageValue) {
       var $totalFoodList = $('#totalFoodList');
       var $fromDb = $('#fromDb');
       $body.empty();
-      $totalFoodList.text(data.result.length);
+      console.log(data);
+      $totalFoodList.text(data.offset +'/' + data.total);
       var result = data.result;
       $fromDb.text(data.fromDb);
       var tr;

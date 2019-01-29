@@ -5,7 +5,7 @@ function MySql(table) {
   this.name = '';
 
   this.createTableFood = function() {
-    var sql = `CREATE TABLE IF NOT EXISTS ${this.table} (id int(11) NOT NULL auto_increment, name VARCHAR(255), manu VARCHAR(255), category VARCHAR(255),dateUpdated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY  (id))`
+    var sql = `CREATE TABLE IF NOT EXISTS ${this.table} (id int(11) NOT NULL auto_increment, name VARCHAR(255), manu VARCHAR(255), category VARCHAR(255),total VARCHAR(255),dateUpdated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY  (id))`
     pool.query(sql, function (err, result) {
     if (err) throw err;
     });
@@ -47,7 +47,7 @@ function MySql(table) {
 }
 
   this.add = function(...params) {
-    var queryString =  `INSERT INTO ${this.table} (name, manu,category) VALUES (?, ?, ?)`;
+    var queryString =  `INSERT INTO ${this.table} (name, manu,category,total) VALUES (?, ?, ?, ?)`;
     console.log(params);
     return new Promise(function(resolve, reject) {
       pool.query(queryString,params, (err, rows, fields) => {

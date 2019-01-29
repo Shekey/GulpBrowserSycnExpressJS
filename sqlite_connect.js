@@ -5,7 +5,7 @@ function SqLite(table) {
   this.table = table;
   this.id = 0;
   this.createTableFood = function () {
-    var sql = 'CREATE TABLE IF NOT EXISTS  food (id INTEGER PRIMARY KEY AUTOINCREMENT, name text, manu text, category text,dateUpdated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)';
+    var sql = 'CREATE TABLE IF NOT EXISTS  food (id INTEGER PRIMARY KEY AUTOINCREMENT, name text, manu text, category text,total text,dateUpdated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)';
     db.run(sql);
     db.serialize(function () {
       db.get("SELECT * FROM food", function (err, rows) {
@@ -27,7 +27,7 @@ function SqLite(table) {
     })
   }
   this.add = function (...params) {
-    var queryString = `INSERT INTO ${this.table} (name, manu,category) VALUES (?, ?, ?)`;
+    var queryString = `INSERT INTO ${this.table} (name, manu,category,total) VALUES (?, ?, ?, ?)`;
     return new Promise(function (resolve, reject) {
       db.serialize(function () {
         db.run(queryString, params, (err, rows, fields) => {

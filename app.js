@@ -41,7 +41,7 @@ app.post('/test', (req, res) => {
   var query = req.body.query;
   var currentPage = req.body.currentPage;
   data.get(query,25,currentPage).then(function (result) {
-    res.json({result: result,fromDb: result.fromDb});
+    res.json({result: result,fromDb: result.fromDb,total:result.total,offset: result.offset});
   })
 });
 app.post('/api/users', function (req, res) {
