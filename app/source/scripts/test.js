@@ -57,7 +57,6 @@ function ajaxCall(query, currentPageValue) {
       var $totalFoodList = $('#totalFoodList');
       var $fromDb = $('#fromDb');
       $body.empty();
-      console.log(data);
       $totalFoodList.text(data.offset +'/' + data.total);
       var result = data.result;
       $fromDb.text(data.fromDb);
